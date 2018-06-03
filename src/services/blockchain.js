@@ -1,12 +1,12 @@
-const Block = require('./models/block')
+const Block = require('../models/block')
 
-const createGenesisBlock = () => {
-  return new Block(0, new Date(), 'Genesis block', '0')
+const genesisBlock = () => {
+  return new Block(0, new Date(), { proof: 1 }, '0')
 }
 
 const nextBlock = lastBlock => {
   const newIndex = lastBlock.index + 1
-  
+
   return new Block(
     lastBlock.index + 1,
     new Date(),
@@ -16,5 +16,6 @@ const nextBlock = lastBlock => {
 }
 
 module.exports = {
-  createGenesisBlock
+  genesisBlock,
+  nextBlock
 }
