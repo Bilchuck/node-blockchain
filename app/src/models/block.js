@@ -5,13 +5,13 @@ module.exports = class Block {
     this.index = index
     this.timestamp = timestamp
     this.data = data
-    this.prevHash = prevHash
+    this.prev_hash = prevHash
     this.hash = this.getHash()
   }
 
   getHash () {
     return sha256(
-      this.index + this.timestamp + this.data + this.prevHash
+      this.index + this.timestamp + this.data + this.prev_hash
     )
   }
 }

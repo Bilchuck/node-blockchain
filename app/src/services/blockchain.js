@@ -5,7 +5,7 @@ const BlockDataTransactions = require('../db/models/block_data_transactions')
 const Transactions = require('../db/models/transactions')
 const Block = require('../models/block')
 
-const nodes = ['http://localhost:4444']
+const nodes = []
 const genesisBlock = () => {
   return new Block(0, new Date(), { proof: 1 }, '0')
 }
@@ -13,6 +13,7 @@ const genesisBlock = () => {
 const findBlockCounts = async () => {
   const otherChains = []
   for (const node of nodes) {
+    console.log('1')
     const chainBuffer = await fetch(`${node}/blocks_count`)
     const chain = await chainBuffer.json()
     otherChains.push({ node, count: chain.count })
@@ -23,7 +24,7 @@ const findBlockCounts = async () => {
 const consensum = async () => {
   const otherChains = await findBlockCounts()
   const currentBlockchain = { count: await Blocks.count() }
-  let longest = { count: 0 }
+  let longest = currentBlockchain
   for (const chain of otherChains) {
     if (chain.count > longest.count) {
       longest = chain
@@ -57,6 +58,7 @@ const clearBlockchain = async () => {
 }
 
 const replaceNodeBlocks = async node => {
+  console.log('2')
   const blocksBuffer = await fetch(`${node}/blocks`)
   const blocks = await blocksBuffer.json()
   await clearBlockchain()

@@ -47,12 +47,7 @@ const miningController = async (req, res) => {
       newBlockData,
       lastBlock.hash
     )
-    const createdBlock = await Blocks.create({
-      hash: minedBlock.hash,
-      index: minedBlock.index,
-      prevHash: minedBlock.prevHash,
-      timestamp: minedBlock.timestamp
-    })
+    const createdBlock = await Blocks.create(minedBlock)
     const createdData = await BlockData.create({
       block_id: createdBlock.dataValues.id,
       proof: minedBlock.data.proof
