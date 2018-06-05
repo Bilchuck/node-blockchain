@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../')
+const { sequelize } = require('../')
 const BlockData = require('./block_data')
 
 const Blocks = sequelize.define('blocks', {

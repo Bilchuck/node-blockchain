@@ -3,6 +3,7 @@ const BlockDataTransactions = require('../db/models/block_data_transactions')
 const BlockData = require('../db/models/block_data')
 const Transactions = require('../db/models/transactions')
 const Block = require('../models/block')
+const { consensum } = require('../services/blockchain')
 
 const miner = 'miner-1'
 
@@ -18,6 +19,7 @@ const proofOfWork = lastProof => {
 
 const miningController = async (req, res) => {
   try {
+    await consensum()
     const lastBlocks = await Blocks.findAll({
       limit: 1,
       include: { model: BlockData, include: BlockDataTransactions },

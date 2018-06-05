@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../')
+const { sequelize } = require('../')
 
-module.exports = sequelize.define('transactions', {
+const Transactions = sequelize.define('transactions', {
   id: {
     primaryKey: true,
     type: Sequelize.UUID,
@@ -16,3 +16,5 @@ module.exports = sequelize.define('transactions', {
   updatedAt: {type: Sequelize.DATE, field: 'updated_at'},
   deleteAt: {type: Sequelize.DATE, field: 'deleted_at'}
 })
+
+module.exports = Transactions

@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
-const sequelize = require('../')
+const { sequelize } = require('../')
+const Transactions = require('./transactions')
 
 const BlockDataTransactions = sequelize.define('block_data_transactions', {
   id: {
@@ -15,5 +16,7 @@ const BlockDataTransactions = sequelize.define('block_data_transactions', {
   updatedAt: {type: Sequelize.DATE, field: 'updated_at'},
   deleteAt: {type: Sequelize.DATE, field: 'deleted_at'}
 })
+
+BlockDataTransactions.belongsTo(Transactions, { foreignKey: 'transaction_id' })
 
 module.exports = BlockDataTransactions
