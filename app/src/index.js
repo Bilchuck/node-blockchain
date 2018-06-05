@@ -11,8 +11,8 @@ const mysqlDetected = async () => {
       await sequelize.authenticate()
       break
     } catch (e) {
-      console.log('SQL is not started yet. Wait 1 second..')
-      await sleep(1000)
+      console.log('SQL is not started yet. Wait 5 second..')
+      await sleep(5 * 1000)
     }
   }
 }

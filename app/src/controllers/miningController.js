@@ -18,33 +18,30 @@ const proofOfWork = lastProof => {
 const miningController = async (req, res) => {
   try {
     await consensum()
-    const lastBlock = await Blocks.findAll({
+    const lastBlock = (await Blocks.findAll({
       limit: 1,
       order: [ [ 'timestamp', 'DESC' ] ]
-    })
-    const lastBlockData = lastBlock[0].dataValues
-    const lastProof = lastBlockData.proof
-    const newProof = proofOfWork(lastProof)
+    }))[0]
+    const proof = proofOfWork(lastBlock.proof)
 
     await Transactions.create({
       from: 'network',
       to: miner,
       amount: 1
     })
-    const transactions = await Transactions.findAll({
-      where: { block_hash: null }
-    })
     const minedBlock = new Block(
       lastBlock.index + 1,
       new Date(),
-      newProof,
-      transactions,
+      proof,
+      [],
       lastBlock.hash
     )
-    await Blocks.create(minedBlock)
-    await transactions.update({
+    await Transactions.update({
       block_hash: minedBlock.hash
+    }, {
+      where: { block_hash: null }
     })
+    await Blocks.create(minedBlock)
     res.send({ successful: true })
   } catch (error) {
     console.log(error)
