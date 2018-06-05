@@ -1,6 +1,6 @@
 const startServer = require('./server')
 const { consensum } = require('./services/blockchain')
-const { sequelize } = require('./db')
+const sequelize = require('./db')
 
 const sleep = time => new Promise((resolve, reject) => {
   setTimeout(resolve, time)
