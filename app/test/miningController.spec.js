@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 const sinon = require('sinon')
-const mock = require('mock-require')
 const {
   mockBlocks,
   mockTransactions,
