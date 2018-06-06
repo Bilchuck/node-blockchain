@@ -1,17 +1,13 @@
 /* eslint-env mocha */
 const sinon = require('sinon')
-const mock = require('mock-require')
 const {
   mockBlocks,
   mockTransactions,
   mockResult
 } = require('./mocks')
+const { blocksController } = require('../src/controllers')
 
 const mockBlocksResult = []
-
-mock('../src/db/models/blocks', mockBlocks)
-mock('../src/db/models/transactions', mockTransactions)
-const { blocksController } = require('../src/controllers')
 
 describe('blocksController', () => {
   beforeEach(() => {

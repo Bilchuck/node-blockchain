@@ -1,17 +1,12 @@
 /* eslint-env mocha */
 const sinon = require('sinon')
-const mock = require('mock-require')
 const {
   mockBlocks,
-  mockTransactions,
   mockResult
 } = require('./mocks')
+const { blocksCountController } = require('../src/controllers')
 
 const countResult = 17
-
-mock('../src/db/models/blocks', mockBlocks)
-mock('../src/db/models/transactions', mockTransactions)
-const { blocksCountController } = require('../src/controllers')
 
 describe('blocksCountController', () => {
   beforeEach(() => {
