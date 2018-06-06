@@ -6,6 +6,7 @@ const getTransactionController = require('./controllers/getTransactionController
 const miningController = require('./controllers/miningController')
 const blocksController = require('./controllers/blocksController')
 const blocksCountController = require('./controllers/blocksCountController')
+const amountController = require('./controllers/amountController')
 
 const PORT = process.env.PORT || 4444
 const app = express()
@@ -15,6 +16,7 @@ app.use(cors())
 
 app.post('/transaction', transactionController)
 app.get('/transaction', getTransactionController)
+app.get('/amount', amountController)
 app.get('/mine', miningController)
 app.get('/blocks', blocksController)
 app.get('/blocks_count', blocksCountController)
