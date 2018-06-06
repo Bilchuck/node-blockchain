@@ -11,6 +11,7 @@ COPY . .
 
 EXPOSE 4444
 
-RUN npm lint
+RUN npm run lint
+RUN npm run test
 
 CMD npm run start:prod
