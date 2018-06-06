@@ -1,18 +1,24 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const transactionController = require('./controllers/transactionController')
-const getTransactionController = require('./controllers/getTransactionController')
-const miningController = require('./controllers/miningController')
-const blocksController = require('./controllers/blocksController')
-const blocksCountController = require('./controllers/blocksCountController')
-const amountController = require('./controllers/amountController')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('../swagger.json')
+const {
+  amountController,
+  blocksController,
+  blocksCountController,
+  getTransactionController,
+  miningController,
+  transactionController
+} = require('./controllers')
 
 const PORT = process.env.PORT || 4444
 const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
+// swagger api doc
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.post('/transaction', transactionController)
 app.get('/transaction', getTransactionController)

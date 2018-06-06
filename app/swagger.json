@@ -1,0 +1,202 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Node blockchain",
+    "description": "Blockchain Node.js implementation",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:4444",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Blockchain",
+      "description": "API for getting blockchain data"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/transaction": {
+      "post": {
+        "tags": [
+          "Transactions"
+        ],
+        "description": "Create new transaction in system",
+        "parameters": [
+          {
+            "name": "from",
+            "description": "Payer account"
+          },
+          {
+            "name": "to",
+            "description": "Receiver account"
+          },
+          {
+            "name": "amount",
+            "description": "Amount of coins to send"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful"
+          }
+        }
+      },
+      "get": {
+          "tags": [
+            "Transactions"
+          ],
+          "parameters": [{
+            "name": "user",
+            "in": "query",
+            "required": true,
+            "description": "ID of user that we want to get transactions",
+            "type": "string"
+          }],
+          "responses": {
+            "200": {
+              "description": "Successful",
+              "schema": {
+                "$ref": "#/definitions/Transactions"
+              }
+            }
+          }
+      }
+    },
+    "/amount/": {
+      "get": {
+        "tags": [
+          "Amount"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "description": "ID of user that we want to get balance",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "schema": {
+              "$ref": "#/definitions/Amount"
+            }
+          }
+        }
+      }
+    },
+    "/mine/": {
+      "get": {
+        "tags": [
+          "Mining"
+        ],
+        "description": "Mine new blocks after proof of work.",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/blocks": {
+      "get": {
+        "tags": [
+          "Blocks"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "schema": {
+              "properties": {
+                "hash": {
+                  "type": "string"
+                },
+                "prev_hash": {
+                  "type": "string"
+                },
+                "index": {
+                  "type": "number"
+                },
+                "proof": {
+                  "type": "number"
+                },
+                "timestamp": {
+                  "type": "date"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/blocks_count": {
+      "get": {
+        "tags": [
+          "Blocks"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful",
+            "schema": {
+              "properties": {
+                "count": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Transaction": {
+      "required": [
+        "from",
+        "to",
+        "amount"
+      ],
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "amount": {
+          "type": "number"
+        }
+      }
+    },
+    "Transactions": {
+      "type": "array",
+      "$ref": "#/definitions/Transaction"
+    },
+    "Amount": {
+      "required": [
+        "amount"
+      ],
+      "properties": {
+        "amount": {
+          "type": "number"
+        }
+      }
+    }
+  }
+}
